@@ -21,5 +21,6 @@
         <RadioButton Content="Multiplication" HorizontalAlignment="Left" Margin="558,248,0,0" VerticalAlignment="Top" FontSize="18" Height="30" Width="133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" GroupName="GameType" Checked="RadioButton_Checked"/>
         <RadioButton Content="Subtraction" HorizontalAlignment="Left" Margin="558,218,0,0" VerticalAlignment="Top" FontSize="18" Height="30" Width="133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" GroupName="GameType" />
         <Label Content="Choose Game Type" HorizontalAlignment="Left" Margin="518,142,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label x:Name="ErrorLabel" Content="" HorizontalAlignment="Left" Margin="132,263,0,0" VerticalAlignment="Top" Width="363" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="Red"/>
     </Grid>
 </Page>

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
-using System.Windows.Navigation;
 
 namespace Assignment_5
 {
@@ -22,9 +21,10 @@ namespace Assignment_5
     /// </summary>
     public partial class MainWindow : Window
     {
+        MathGame game;
         public MainWindow() {
             InitializeComponent();
-            Main.Content = new StartPage(this);
+            Main.Content = new StartPage(this); // display start page
         }
 
         private void MyMethod() {
@@ -36,12 +36,8 @@ namespace Assignment_5
             } 
         }
 
-        public void StartGame() {
-            
+        public void StartGame(int gameType, string name, int age) {
+            game = new MathGame(gameType, name, age);
         }
-
-
-
-
     }
 }

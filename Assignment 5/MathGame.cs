@@ -9,7 +9,7 @@ namespace Assignment_5 {
         string playerName;
         int playerAge;
 
-        MathGame(int gameType, string playerName, int playerAge) {
+        public MathGame(int gameType, string playerName, int playerAge) {
             this.gameType = gameType;
             this.playerName = playerName;
             this.playerAge = playerAge;
