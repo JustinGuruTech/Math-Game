@@ -21,12 +21,22 @@ namespace Assignment_5
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Class Stuff
+        /// <summary>
+        /// Stores instance of game being played
+        /// </summary>
         MathGame game;
+
+        /// <summary>
+        /// Initializes MainWindow and sets Frame to StartPage
+        /// </summary>
         public MainWindow() {
             InitializeComponent();
             Main.Content = new StartPage(this); // display start page
         }
+        #endregion
 
+        /*
         private void MyMethod() {
             try {
 
@@ -35,9 +45,18 @@ namespace Assignment_5
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             } 
         }
+        */
 
+        #region Start Game
+        /// <summary>
+        /// Initializes new game and stores in class variable
+        /// </summary>
+        /// <param name="gameType"></param>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
         public void StartGame(int gameType, string name, int age) {
             game = new MathGame(gameType, name, age);
         }
+        #endregion
     }
 }

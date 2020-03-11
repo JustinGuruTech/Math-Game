@@ -17,14 +17,32 @@ namespace Assignment_5 {
     /// </summary>
     public partial class GamePage : Page {
 
+        #region Class Stuff
+        /// <summary>
+        /// MainWindow instance used for changing Frame and initializing game
+        /// </summary>
         MainWindow main;
+
+        /// <summary>
+        /// Constructor initializes main
+        /// </summary>
+        /// <param name="main"></param>
         public GamePage(MainWindow main) {
             InitializeComponent();
             this.main = main;
         }
+        #endregion
 
+        #region Quit Game
+        /// <summary>
+        /// Takes user back to start screen if they wish.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackToMenu_Click(Object sender, RoutedEventArgs e) {
+            // TODO: implemenent "are you sure?"
             main.Main.Content = new StartPage(main);
         }
+        #endregion
     }
 }
