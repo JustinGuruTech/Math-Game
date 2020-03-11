@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
+using System.Windows.Navigation;
 
 namespace Assignment_5
 {
@@ -21,9 +22,9 @@ namespace Assignment_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
+            Main.Content = new StartPage(this);
         }
 
         private void MyMethod() {
@@ -34,5 +35,13 @@ namespace Assignment_5
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             } 
         }
+
+        public void StartGame() {
+            
+        }
+
+
+
+
     }
 }
