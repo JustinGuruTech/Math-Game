@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Reflection;
 
 namespace Assignment_5 {
     /// <summary>
@@ -8,7 +8,7 @@ namespace Assignment_5 {
     /// </summary>
     public class Player {
 
-        #region Class Stuff
+        #region Class Variables
         /// <summary>
         /// Player name
         /// </summary>
@@ -23,15 +23,22 @@ namespace Assignment_5 {
         /// List of games played and their results
         /// </summary>
         List<GameResult> games = new List<GameResult>();
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="name"></param>
         /// <param name="age"></param>
         public Player(string name, int age) {
-            this.name = name;
-            this.age = age;
+            try {
+                this.name = name;
+                this.age = age;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 
@@ -43,7 +50,12 @@ namespace Assignment_5 {
         /// <param name="time"></param>
         /// <param name="gameType"></param>
         public void AddGameResult(int correctGuesses, double time, int gameType) {
-            games.Add(new GameResult(correctGuesses, time, gameType));
+            try {
+                games.Add(new GameResult(correctGuesses, time, gameType));
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
     }

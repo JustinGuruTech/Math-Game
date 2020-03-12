@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Assignment_5 {
     
     /// <summary>
     /// Contains game logic behind math game
     /// </summary>
-    class MathGame {
+    public class MathGame {
 
         #region Class Variables
         /// <summary>
@@ -16,17 +14,25 @@ namespace Assignment_5 {
         /// </summary>
         readonly int gameType;
 
-        readonly Player player;
-
         /// <summary>
         /// Random number generator class
         /// </summary>
         Random rand = new Random();
 
+        /// <summary>
+        /// Left operand stored for display
+        /// </summary>
         int leftOperand;
-        int rightOperand;
-        int correctAnswer;
 
+        /// <summary>
+        /// Right operand stored for display
+        /// </summary>
+        int rightOperand;
+
+        /// <summary>
+        /// Correct answer stored for answer checking
+        /// </summary>
+        int correctAnswer;
         #endregion
 
         #region Getters
@@ -35,15 +41,38 @@ namespace Assignment_5 {
         /// </summary>
         /// <returns></returns>
         public int GetGameType() {
-            return gameType;
+            try {
+                return gameType;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
+        /// <summary>
+        /// Returns left operand
+        /// </summary>
+        /// <returns></returns>
         public int GetLeftOperand() {
-            return leftOperand;
+            try { 
+                return leftOperand; 
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
+        /// <summary>
+        /// Returns right operand
+        /// </summary>
+        /// <returns></returns>
         public int GetRightOperand() {
-            return rightOperand;
+            try {
+                return rightOperand;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 
@@ -55,8 +84,13 @@ namespace Assignment_5 {
         /// <param name="playerName"></param>
         /// <param name="playerAge"></param>
         public MathGame(int gameType) {
-            this.gameType = gameType;
-            GenerateNumbers();
+            try {
+                this.gameType = gameType;
+                GenerateNumbers();
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 

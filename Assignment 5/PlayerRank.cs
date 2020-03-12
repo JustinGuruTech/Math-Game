@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reflection;
 
 namespace Assignment_5 {
 
@@ -9,7 +8,7 @@ namespace Assignment_5 {
     /// </summary>
     public class PlayerRank {
 
-        #region Class Stuff
+        #region Class Variables
         /// <summary>
         /// Correct Guesses
         /// </summary>
@@ -24,7 +23,9 @@ namespace Assignment_5 {
         /// User
         /// </summary>
         public Player player;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -32,9 +33,14 @@ namespace Assignment_5 {
         /// <param name="time"></param>
         /// <param name="player"></param>
         public PlayerRank(int correctGuesses, double time, Player player) {
-            this.correctGuesses = correctGuesses;
-            this.time = time;
-            this.player = player;
+            try {
+                this.correctGuesses = correctGuesses;
+                this.time = time;
+                this.player = player;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
     }

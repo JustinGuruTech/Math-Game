@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Assignment_5 {
     /// <summary>
@@ -30,15 +22,20 @@ namespace Assignment_5 {
         int gameType;
         #endregion
 
-        #region Initializer
+        #region Constructor
         /// <summary>
         /// Initializer for StartPage, sets main to MainWindow passed in
         /// </summary>
         /// <param name="main"></param>
         public StartPage(MainWindow main) {
-            InitializeComponent();
-            this.main = main;
-            NameInput.Focus();
+            try {
+                InitializeComponent();
+                this.main = main;
+                NameInput.Focus();
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 

@@ -9,14 +9,19 @@
       Title="LeaderBoardPage">
 
     <Grid Background="#FFB08BFF">
-        <StackPanel x:Name="ScoresStack" Margin="10,73,10,0">
+        <StackPanel x:Name="ScoresStack" Margin="276,4,10,10">
             <StackPanel x:Name="ScoreStack" Height="35" Orientation="Horizontal">
-                <Label x:Name="NameLabel" Content="Name" FontWeight="Bold" FontSize="20" Width="314" Foreground="White"/>
-                <Label x:Name="ScoreLabel" Content="Score" FontWeight="Bold" FontSize="20" Width="172" Foreground="White"/>
+                <Label Content="Rank" FontWeight="Bold" FontSize="20" Width="60" Foreground="White" />
+                <Label x:Name="NameLabel" Content="Name" FontWeight="Bold" FontSize="20" Width="300" Foreground="White"/>
+                <Label x:Name="ScoreLabel" Content="Score" FontWeight="Bold" FontSize="20" Width="80" Foreground="White"/>
                 <Label x:Name="TimeLabel" Content="Time" FontWeight="Bold" FontSize="20" Foreground="White"/>
             </StackPanel>
         </StackPanel>
-        <Label x:Name="LeaderBoardTitle" Content="MathHead Addition Leaderboard" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="White"/>
+        <Label Content="Leaderboard" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="White"/>
+        <Button x:Name="BackToMenu" Content="Back To Menu" HorizontalAlignment="Left" Margin="34,211,0,0" VerticalAlignment="Top" Height="39" Width="141" Click="BackToMenu_Click" Foreground="#FFB08BFF" FontWeight="Bold" FontSize="20"/>
+        <Button x:Name="PlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="34,278,0,0" VerticalAlignment="Top" Height="39" Width="141" Click="PlayAgain_Click" Foreground="#FFB08BFF" FontSize="20" FontWeight="Bold"/>
+        <Label Content="MathHead" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="White"/>
+        <Label x:Name="LeaderBoardTitle" Content="Addition" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="White"/>
 
     </Grid>
 </Page>

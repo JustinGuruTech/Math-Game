@@ -9,4 +9,16 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\bad.jpg" />
+    <None Remove="images\good.jpg" />
+    <None Remove="images\thumb.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\bad.jpg" />
+    <Resource Include="images\good.jpg" />
+    <Resource Include="images\thumb.png" />
+  </ItemGroup>
+
 </Project>

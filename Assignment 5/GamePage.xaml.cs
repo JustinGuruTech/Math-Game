@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Assignment_5 {
     /// <summary>
@@ -27,7 +21,7 @@ namespace Assignment_5 {
         /// <summary>
         /// Stores instance of game being played
         /// </summary>
-        private MathGame game;
+        public MathGame game;
 
         /// <summary>
         /// Total number of games played
@@ -39,8 +33,54 @@ namespace Assignment_5 {
         /// </summary>
         private int correctGuesses;
 
+        /// <summary>
+        /// Current player
+        /// </summary>
         private Player player;
-        private double time;
+
+        /// <summary>
+        /// Time elapsed
+        /// </summary>
+        private int time;
+
+        DispatcherTimer myTimer;
+        #endregion
+
+        #region Getters
+        public Player GetPlayer() {
+            try {
+                return player;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// return number of correct guesses
+        /// </summary>
+        /// <returns></returns>
+        public int GetCorrectGuesses() {
+            try {
+                return correctGuesses;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// return time elapsed
+        /// </summary>
+        /// <returns></returns>
+        public int GetTime() {
+            try {
+                return time;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
         #endregion
 
         #region Constructor
@@ -49,36 +89,115 @@ namespace Assignment_5 {
         /// </summary>
         /// <param name="main"></param>
         public GamePage(MainWindow main, int gameType, Player player) {
-            InitializeComponent();
-            PlayerAnswer.Focus();
+            try {
+                InitializeComponent();
+                
 
-            // classes
-            this.main = main;
-            this.game = new MathGame(gameType);
-            this.player = player;
-            time = 2;
+                // classes
+                this.main = main;
+                this.game = new MathGame(gameType);
+                this.player = player;
 
-            // update UI
-            PlayerName.Content = "Name: " + player.name;
-            PlayerAge.Content = "Age: " + player.age;
-            LeftOperand.Content = game.GetLeftOperand();
-            RightOperand.Content = game.GetRightOperand();
-            SetOperator();
-            games = 0;
+                // update UI
+                PlayerName.Content = "Name: " + player.name;
+                PlayerAge.Content = "Age: " + player.age;
+                
+                SetOperator();
+                games = 0;
+
+                myTimer = new DispatcherTimer();
+                myTimer.Interval = TimeSpan.FromSeconds(1);
+                myTimer.Tick += MyTimer_Tick;
+                
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
         }
         #endregion
 
-        #region Quit Game
+        #region Timer
         /// <summary>
-        /// Takes user back to start screen if they wish.
+        /// Called every second by timer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BackToMenu_Click(Object sender, RoutedEventArgs e) {
-
+        private void MyTimer_Tick(object sender, EventArgs e) {
             try {
-                // TODO: implemenent "are you sure?"
-                main.Main.Content = new StartPage(main);
+                time++;
+                TimeLabel.Content = "Time: " + time + "s";
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Start Game Button
+        private void StartGame_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (StartGame.Content.Equals("Start Game")) {
+                    // set operands
+                    LeftOperand.Content = game.GetLeftOperand();
+                    RightOperand.Content = game.GetRightOperand();
+                    // start timer and focus input
+                    myTimer.Start();
+                    PlayerAnswer.Focus();
+                    // update button
+                    StartGame.Content = "Submit Answer";
+                    PlayerAnswer.IsEnabled = true;
+                    PlayerAnswer.Focus();
+                } else {
+                    SubmitAnswer();
+                } 
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Answer Submission
+        private void SubmitAnswer() {
+            try {
+                int playerAnswer;
+                bool isNumber = Int32.TryParse(PlayerAnswer.Text, out playerAnswer);
+
+                // user entered text
+                if (!isNumber) {
+                    GuessResult.Foreground = Brushes.Red;
+                    GuessResult.Content = "Numbers, Please.";
+                    return;
+                } else {
+                    // correct answer
+                    if (game.CheckAnswer(playerAnswer)) {
+                        correctGuesses++;
+                        GuessResult.Foreground = Brushes.Green;
+                        GuessResult.Content = "Correct!";
+                    }
+                    // wrong answer
+                    else {
+                        GuessResult.Foreground = Brushes.Red;
+                        GuessResult.Content = "Incorrect.";
+                    }
+
+                }
+
+                // check if 10 games played
+                games++;
+                if (games >= 10) {
+                    EndGame();
+                    return;
+                }
+
+                // update UI
+                PlayerAnswer.Text = "";
+                game.GenerateNumbers();
+                LeftOperand.Content = game.GetLeftOperand();
+                RightOperand.Content = game.GetRightOperand();
+                QuestionLabel.Content = "Question: " + (games + 1) + "/10";
+
             } catch (Exception ex) {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
@@ -97,6 +216,24 @@ namespace Assignment_5 {
                 if (e.Key == Key.Return) {
                     SubmitAnswer();
                 }
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Quit Game
+        /// <summary>
+        /// Takes user back to start screen if they wish.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackToMenu_Click(Object sender, RoutedEventArgs e) {
+
+            try {
+                // TODO: implemenent "are you sure?"
+                main.Main.Content = new StartPage(main);
             } catch (Exception ex) {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
@@ -132,62 +269,28 @@ namespace Assignment_5 {
         }
         #endregion
 
-        #region Answer Submission
-        private void SubmitAnswer() {
-            try {
-                int playerAnswer;
-                bool isNumber = Int32.TryParse(PlayerAnswer.Text, out playerAnswer);
-
-                // user entered text
-                if (!isNumber) {
-                    GuessResult.Foreground = Brushes.Green;
-                    GuessResult.Content = "Numbers, Please.";
-                    return;
-                } else {
-                    // correct answer
-                    if (game.CheckAnswer(playerAnswer)) {
-                        correctGuesses++;
-                        GuessResult.Foreground = Brushes.Green;
-                        GuessResult.Content = "Correct!";
-                    }
-                    // wrong answer
-                    else {
-                        GuessResult.Foreground = Brushes.Red;
-                        GuessResult.Content = "Incorrect.";
-                    }
-
-                }
-
-                // check if 10 games played
-                games++;
-                if (games >= 10) {
-                    EndGame();
-                    return;
-                }
-
-                // update UI
-                PlayerAnswer.Text = "";
-                game.GenerateNumbers();
-                LeftOperand.Content = game.GetLeftOperand();
-                RightOperand.Content = game.GetRightOperand();
-
-            } catch (Exception ex) {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-        #endregion
-
         #region Endgame
         /// <summary>
         /// Shows result in dialog, saves user score and adds to leaderboard, and changes to leaderboard page
         /// </summary>
         public void EndGame() {
-            player.AddGameResult(correctGuesses, time, game.GetGameType());
-            MessageBox.Show("Final Score: " + correctGuesses + " out of " + games, "Game Over");
-            main.AddToLeaderBoard(game.GetGameType(), correctGuesses, time, player);
-            main.Main.Content = new LeaderBoardPage(main.leaderboards[game.GetGameType()]);
+            try {
+                myTimer.Stop(); // stop timer
+                // add game result and display
+                player.AddGameResult(correctGuesses, time, game.GetGameType());
+                // add to leaderboard
+                bool added = main.AddToLeaderBoard(game.GetGameType(), correctGuesses, time, player);
+                // show results page
+                main.Main.Content = new ResultsWindow(main, this, added);
+                // show leaderboard page
+                // main.Main.Content = new LeaderBoardPage(this, main.leaderboards[game.GetGameType()], main);
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
         }
         #endregion
+
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reflection;
 
 namespace Assignment_5 {
 
@@ -31,9 +30,14 @@ namespace Assignment_5 {
         /// <param name="correctGuesses"></param>
         /// <param name="time"></param>
         public GameResult(int correctGuesses, double time, int gameType) {
-            this.correctGuesses = correctGuesses;
-            this.time = time;
-            this.gameType = gameType;
+            try {
+                this.correctGuesses = correctGuesses;
+                this.time = time;
+                this.gameType = gameType;
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
     }
