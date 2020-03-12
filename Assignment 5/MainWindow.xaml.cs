@@ -23,11 +23,6 @@ namespace Assignment_5
     {
         #region Class Stuff
         /// <summary>
-        /// Stores instance of game being played
-        /// </summary>
-        MathGame game;
-
-        /// <summary>
         /// Initializes MainWindow and sets Frame to StartPage
         /// </summary>
         public MainWindow() {
@@ -46,17 +41,5 @@ namespace Assignment_5
             } 
         }
         */
-
-        #region Start Game
-        /// <summary>
-        /// Initializes new game and stores in class variable
-        /// </summary>
-        /// <param name="gameType"></param>
-        /// <param name="name"></param>
-        /// <param name="age"></param>
-        public void StartGame(int gameType, string name, int age) {
-            game = new MathGame(gameType, name, age);
-        }
-        #endregion
     }
 }

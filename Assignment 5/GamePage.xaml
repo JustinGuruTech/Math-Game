@@ -10,6 +10,16 @@
       Title="GamePage">
 
     <Grid Background="#FF7BE8A7">
-        
+        <Label x:Name="PlayerName" Content="Name" HorizontalAlignment="Left" Margin="446,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="24" Width="324" Foreground="#FF7F52DF"/>
+        <Label x:Name="PlayerAge" Content="Age" HorizontalAlignment="Left" Margin="446,52,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="24" Width="324" Foreground="#FF7F52DF"/>
+        <Label x:Name="PlayerName_Copy" Content="MathHead" HorizontalAlignment="Left" Margin="31,28,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="45" Width="324" Height="63" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="#FF7F52DF"/>
+        <Rectangle HorizontalAlignment="Center" Height="7" Margin="0,123,0,0" VerticalAlignment="Top" Width="741" Fill="#FF7F52DF"/>
+        <Label x:Name="LeftOperand" Content="" HorizontalAlignment="Left" Margin="76,178,0,0" VerticalAlignment="Top" Height="135" Width="135" Foreground="#FF7F52DF" FontSize="68" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="#FF7F52DF" BorderThickness="5,5,5,5" FontWeight="Bold"/>
+        <Label x:Name="RightOperand" Content="" HorizontalAlignment="Left" Margin="341,178,0,0" VerticalAlignment="Top" Height="135" Width="135" Foreground="#FF7F52DF" FontSize="68" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="#FF7F52DF" BorderThickness="5,5,5,5" FontWeight="Bold"/>
+        <Label x:Name="OperatorLabel" Content="" HorizontalAlignment="Left" Margin="216,159,0,0" VerticalAlignment="Top" Height="154" Width="125" Foreground="#FF7F52DF" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="#FF7F52DF" Padding="0,0,6,0" MinHeight="6" />
+        <Label Content="=" HorizontalAlignment="Left" Margin="481,159,0,0" VerticalAlignment="Top" Height="154" Width="125" Foreground="#FF7F52DF" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="#FF7F52DF" Padding="0,0,6,0" MinHeight="6" />
+        <TextBox x:Name="PlayerAnswer" HorizontalAlignment="Left" Margin="601,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" Height="135" Background="#FFD7D7D7" FontSize="68" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" BorderBrush="Black" Foreground="Black" BorderThickness="3,3,3,3" KeyDown="EnterKeyHandler" />
+        <Label x:Name="GuessResult" Content="" HorizontalAlignment="Left" Margin="473,333,0,0" VerticalAlignment="Top" FontSize="26" Width="270" HorizontalContentAlignment="Right" Foreground="#FFEB2424" FontWeight="Bold"/>
+
     </Grid>
 </Page>

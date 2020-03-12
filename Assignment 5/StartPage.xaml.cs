@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,7 @@ namespace Assignment_5 {
         /// <summary>
         /// passed to game initializer for game mode
         /// </summary>
-        int gameType = 0;
+        int gameType;
         #endregion
 
         #region Initializer
@@ -47,23 +48,29 @@ namespace Assignment_5 {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void RadioButton_Checked(object sender, RoutedEventArgs e) {
-            String gameTypeString = (sender as RadioButton).Content.ToString();
-            Console.WriteLine(gameType);
 
-            // assign game type based on radio button pressed
-            switch (gameTypeString) {
-                case "Addition":
-                    gameType = 0;
-                    break;
-                case "Subtraction":
-                    gameType = 1;
-                    break;
-                case "Multiplication":
-                    gameType = 2;
-                    break;
-                case "Division":
-                    gameType = 3;
-                    break;
+            try {
+                String gameTypeString = (sender as RadioButton).Content.ToString();
+                Console.WriteLine(gameType);
+
+                // assign game type based on radio button pressed
+                switch (gameTypeString) {
+                    case "Addition":
+                        gameType = 0;
+                        break;
+                    case "Subtraction":
+                        gameType = 1;
+                        break;
+                    case "Multiplication":
+                        gameType = 2;
+                        break;
+                    case "Division":
+                        gameType = 3;
+                        break;
+                }
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
         }
@@ -77,32 +84,35 @@ namespace Assignment_5 {
         /// <param name="e"></param>
         private void StartGameButton_Click(object sender, RoutedEventArgs e) {
 
-            // get ui elements into variables
-            string name = NameInput.Text;
-            int age = -1;
-            Int32.TryParse(AgeInput.Text, out age);
+            try {
+                // get ui elements into variables
+                string name = NameInput.Text;
+                int age = -1;
+                Int32.TryParse(AgeInput.Text, out age);
 
-            // name validation
-            if (name.Length < 1) {
-                ErrorLabel.Content = "Please enter a name.";
-                return;
-            }
+                // name validation
+                if (name.Length < 1) {
+                    ErrorLabel.Content = "Please enter a name.";
+                    return;
+                }
 
-            // age validation
-            if (age < 0) {
-                ErrorLabel.Content = "Enter a real age.";
-                return;
-            } else if (age < 3) {
-                ErrorLabel.Content = "You must be 3 to play.";
-                return;
-            } else if (age > 10) {
-                ErrorLabel.Content = "You must be under 10 to play.";
-                return;
+                // age validation
+                if (age < 0) {
+                    ErrorLabel.Content = "Enter a real age.";
+                    return;
+                } else if (age < 3) {
+                    ErrorLabel.Content = "You must be 3 to play.";
+                    return;
+                } else if (age > 10) {
+                    ErrorLabel.Content = "You must be under 10 to play.";
+                    return;
+                }
+
+                main.Main.Content = new GamePage(main, gameType, name, age);
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-            
-            
-            main.StartGame(gameType, name, age);
-            main.Main.Content = new GamePage(main);
         }
         #endregion
     }
