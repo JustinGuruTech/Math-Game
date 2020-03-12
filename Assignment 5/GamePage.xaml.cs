@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,6 +43,11 @@ namespace Assignment_5 {
         /// Time elapsed
         /// </summary>
         private int time;
+
+        /// <summary>
+        /// Absolutely ridiculous sfx for correct answers
+        /// </summary>
+        SoundPlayer simpleSound = new SoundPlayer("cheer.wav");
 
         DispatcherTimer myTimer;
         #endregion
@@ -175,6 +181,7 @@ namespace Assignment_5 {
                         correctGuesses++;
                         GuessResult.Foreground = Brushes.Green;
                         GuessResult.Content = "Correct!";
+                        simpleSound.Play();
                     }
                     // wrong answer
                     else {

@@ -25,7 +25,7 @@
             <Separator Height="20" Background="{x:Null}" Foreground="{x:Null}"/>
             <Button x:Name="Leaderboard" Content="Leaderboard" Width="204" FontWeight="Bold" FontSize="30" BorderBrush="White" Background="#FF7F52DF" Foreground="White" Click="Leaderboard_Click" Height="60"/>
         </StackPanel>
-        <Label x:Name="MadeLeaderboard" Content="" HorizontalAlignment="Left" Margin="424,335,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Normal"/>
+        <Label x:Name="MadeLeaderboard" Content="" HorizontalAlignment="Left" Margin="424,335,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Normal" Width="292" HorizontalContentAlignment="Right"/>
 
 
     </Grid>
