@@ -38,6 +38,7 @@ namespace Assignment_5 {
         public StartPage(MainWindow main) {
             InitializeComponent();
             this.main = main;
+            NameInput.Focus();
         }
         #endregion
 
@@ -108,7 +109,27 @@ namespace Assignment_5 {
                     return;
                 }
 
-                main.Main.Content = new GamePage(main, gameType, name, age);
+                Player player;
+                player = main.GetPlayer(name, age);
+                main.Main.Content = new GamePage(main, gameType,player);
+            } catch (Exception ex) {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Enter Key
+        /// <summary>
+        /// Allows user to press enter to start game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnterKeyHandler(object sender, KeyEventArgs e) {
+            try {
+                if (e.Key == Key.Return) {
+                    StartGameButton_Click(sender, e);
+                }
             } catch (Exception ex) {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);

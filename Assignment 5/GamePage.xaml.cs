@@ -38,6 +38,9 @@ namespace Assignment_5 {
         /// Total number of correct guesses
         /// </summary>
         private int correctGuesses;
+
+        private Player player;
+        private double time;
         #endregion
 
         #region Constructor
@@ -45,17 +48,19 @@ namespace Assignment_5 {
         /// Constructor initializes main and sets name/age labels
         /// </summary>
         /// <param name="main"></param>
-        public GamePage(MainWindow main, int gameType, string name, int age) {
+        public GamePage(MainWindow main, int gameType, Player player) {
             InitializeComponent();
             PlayerAnswer.Focus();
 
             // classes
             this.main = main;
             this.game = new MathGame(gameType);
+            this.player = player;
+            time = 2;
 
             // update UI
-            PlayerName.Content = "Name: " + name;
-            PlayerAge.Content = "Age: " + age;
+            PlayerName.Content = "Name: " + player.name;
+            PlayerAge.Content = "Age: " + player.age;
             LeftOperand.Content = game.GetLeftOperand();
             RightOperand.Content = game.GetRightOperand();
             SetOperator();
@@ -135,19 +140,29 @@ namespace Assignment_5 {
 
                 // user entered text
                 if (!isNumber) {
+                    GuessResult.Foreground = Brushes.Green;
                     GuessResult.Content = "Numbers, Please.";
                     return;
                 } else {
                     // correct answer
                     if (game.CheckAnswer(playerAnswer)) {
                         correctGuesses++;
+                        GuessResult.Foreground = Brushes.Green;
                         GuessResult.Content = "Correct!";
                     }
                     // wrong answer
                     else {
+                        GuessResult.Foreground = Brushes.Red;
                         GuessResult.Content = "Incorrect.";
                     }
 
+                }
+
+                // check if 10 games played
+                games++;
+                if (games >= 10) {
+                    EndGame();
+                    return;
                 }
 
                 // update UI
@@ -155,11 +170,23 @@ namespace Assignment_5 {
                 game.GenerateNumbers();
                 LeftOperand.Content = game.GetLeftOperand();
                 RightOperand.Content = game.GetRightOperand();
-                games++;
+
             } catch (Exception ex) {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
+        #endregion
+
+        #region Endgame
+        /// <summary>
+        /// Shows result in dialog, saves user score and adds to leaderboard, and changes to leaderboard page
+        /// </summary>
+        public void EndGame() {
+            player.AddGameResult(correctGuesses, time, game.GetGameType());
+            MessageBox.Show("Final Score: " + correctGuesses + " out of " + games, "Game Over");
+            main.AddToLeaderBoard(game.GetGameType(), correctGuesses, time, player);
+            main.Main.Content = new LeaderBoardPage(main.leaderboards[game.GetGameType()]);
         }
         #endregion
     }

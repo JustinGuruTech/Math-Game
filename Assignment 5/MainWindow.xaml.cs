@@ -22,12 +22,41 @@ namespace Assignment_5
     public partial class MainWindow : Window
     {
         #region Class Stuff
+        List<Player> playerList = new List<Player>();
+
+        public List<LeaderBoard> leaderboards = new List<LeaderBoard>(4);
+
+        public void AddPlayer(Player player) {
+            playerList.Add(player);
+        }
+
+        public void AddToLeaderBoard(int gameType, int CorrectGuesses, double time, Player player) {
+            leaderboards[gameType].InsertPlayer(CorrectGuesses, time, player);
+        }
+
+        public Player GetPlayer(string name, int age) {
+
+            // if player already exists
+            int index = playerList.FindIndex(item => item.name == name && item.age == age);
+            if (index >= 0) {
+                return playerList[index];
+            } 
+            // new player
+            else {
+                Player player = new Player(name, age);
+                AddPlayer(player);
+                return player;
+            }
+        }
         /// <summary>
         /// Initializes MainWindow and sets Frame to StartPage
         /// </summary>
         public MainWindow() {
             InitializeComponent();
             Main.Content = new StartPage(this); // display start page
+            for (int i = 0; i < 4; i++) {
+                leaderboards.Add(new LeaderBoard(i));
+            }
         }
         #endregion
 

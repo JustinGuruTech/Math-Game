@@ -16,6 +16,8 @@ namespace Assignment_5 {
         /// </summary>
         readonly int gameType;
 
+        readonly Player player;
+
         /// <summary>
         /// Random number generator class
         /// </summary>
@@ -79,15 +81,18 @@ namespace Assignment_5 {
                     rightOperand = rand.Next(0, 11);
                     correctAnswer = leftOperand * rightOperand;
                 } 
-                // addition and subtraction
+
+                // subtraction
+                else if (gameType == 1) {
+                    leftOperand = rand.Next(1, 11);
+                    rightOperand = rand.Next(1, leftOperand + 1);
+                    correctAnswer = leftOperand - rightOperand;
+                }
+                // addition
                 else {
                     leftOperand = rand.Next(1, 11);
                     rightOperand = rand.Next(1, 11);
-                    if (gameType == 0) {
-                        correctAnswer = leftOperand + rightOperand;
-                    } else if (gameType == 1) {
-                        correctAnswer = leftOperand - rightOperand;
-                    }
+                    correctAnswer = leftOperand + rightOperand;
                 }
             } catch (Exception ex) {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
